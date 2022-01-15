@@ -16,7 +16,7 @@ There is a structure to NDEF
 
 This is sorta what it looks like except the payload is much more garbage array looking.
 
-As shown above, it has all of the config in the map. The main thing we are concerned with is the message to read. Where is that? That is in the payload. Does that payload look like a weird array or list of numbers? Yes, thats exactly it. Turns out the message is stored in the form of Uint8(8-bit unsigned integer (range: 0 through 255 decimal)). To be able to read this message the payload has to be converted from Uint8 to a normal String. Another interesting thing is on the NDEF payload when you convert it is a weird symbol along with en. To know more about [that](https://stackoverflow.com/questions/7917567/strange-character-on-android-ndef-record-payload) 
+As shown above, it has all of the config in the map. The main thing we are concerned with is the message to read. Where is that? That is in the payload. Does that payload look like a weird array or list of numbers? Yes, thats exactly it. Turns out the message is stored in the form of Uint8(8-bit unsigned integer (range: 0 through 255 decimal)). To be able to read this message the payload has to be converted from Uint8 to a normal String. Another interesting thing is on the NDEF payload when you convert it is a weird symbol along with en. To know more about that go [here](https://stackoverflow.com/questions/7917567/strange-character-on-android-ndef-record-payload) 
 
 Since there isnt much to go on with, I would suggest using the guys own app(its what helped me). Download the [app](https://play.google.com/store/apps/details?id=com.naokiokada.nfcmanager) as well and follow along with the [repo](https://github.com/okadan/nfc-manager) if needed.
 
