@@ -12,6 +12,7 @@ NDEF - NFC Data Exchange Format. Used to encapsulate typed data. It defines mess
 
 There is a structure to NDEF
 
+![image](https://user-images.githubusercontent.com/54055822/149623959-864b231b-b5ac-4b78-b132-ee7f377da599.png)
 
 This is sorta what it looks like.
 
