@@ -7,17 +7,28 @@ void main() {
   runApp(MyApp());
 }
 
+//Availability Check
+Future<void> _available() async {
+  bool isAvailable = await NfcManager.instance.isAvailable();
+  print(isAvailable);
+}
+
+//Reading NDEF Tag
 void _tagRead() {
+  var messages;
   NfcManager.instance.startSession(
     onDiscovered: (tag) async {
-      result.value = tag.data;
-      print(result.toString());
+      var tech =
+          tag.data['ndef']['cachedMessage']['records'][0]['payload'].sublist(3);
+      messages = String.fromCharCodes(tech);
+      print(messages);
       NfcManager.instance.stopSession();
     },
   );
 }
 
-void _ndefWrite() {
+//Write to an NDEF Tag
+void _ndefWrite() async {
   NfcManager.instance.startSession(
     onDiscovered: (tag) async {
       var ndef = Ndef.from(tag);
@@ -35,8 +46,9 @@ void _ndefWrite() {
       //The actual writing part
       try {
         await ndef.write(message);
-        result.value = 'Sucess!';
+        result.value = 'joe nuts';
         NfcManager.instance.stopSession();
+        print(message.records.length);
       } catch (e) {
         result.value = e;
         NfcManager.instance.stopSession(errorMessage: result.value.toString());
@@ -77,6 +89,10 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: _ndefWrite,
                 child: Text('Write NDEF Tag'),
+              ),
+              ElevatedButton(
+                onPressed: _available,
+                child: Text('Availability'),
               ),
             ],
           ),
