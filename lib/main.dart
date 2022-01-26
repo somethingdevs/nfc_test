@@ -47,7 +47,7 @@ void _ndefWrite(String payload) async {
       }
       NdefMessage message = NdefMessage(
         [
-          NdefRecord.createText(payload),
+          NdefRecord.createUri(Uri.parse(payload)),
         ],
       );
 
@@ -88,70 +88,72 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('NFC Test'),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 100,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _tagRead();
-                  });
-                },
-                child: Text('Read Tag'),
-              ),
-              messages.isEmpty ? SizedBox() : Text(messages),
-              SizedBox(
-                height: 50,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  _ndefWrite(ndefPayload);
-                },
-                child: Text('Write NDEF Tag'),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 3, color: Colors.black),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(width: 3, color: Colors.black),
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                  maxLength: 60,
-                  onSubmitted: (value) {
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 100,
+                ),
+                ElevatedButton(
+                  onPressed: () {
                     setState(() {
-                      ndefPayload = value;
-                      print(ndefPayload);
-                      print('Success!');
+                      _tagRead();
                     });
                   },
+                  child: Text('Read Tag'),
                 ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _available();
-                  });
-                },
-                child: Text('Availability'),
-              ),
-              Container(
-                child: Text(isAvailable.toString()),
-              ),
-            ],
+                messages.isEmpty ? SizedBox() : Text(messages),
+                SizedBox(
+                  height: 50,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _ndefWrite(ndefPayload);
+                  },
+                  child: Text('Write NDEF Tag'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 3, color: Colors.black),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(width: 3, color: Colors.black),
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                    maxLength: 60,
+                    onSubmitted: (value) {
+                      setState(() {
+                        ndefPayload = value;
+                        print(ndefPayload);
+                        print('Success!');
+                      });
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _available();
+                    });
+                  },
+                  child: Text('Availability'),
+                ),
+                Container(
+                  child: Text(isAvailable.toString()),
+                ),
+              ],
+            ),
           ),
         ),
       ),
